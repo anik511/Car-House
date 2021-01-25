@@ -1,0 +1,25 @@
+{
+  "name": "car-house",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "core-js": "^3.8.3",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
+    "vue": "^2.6.12",
+    "vue-router": "^3.4.9",
+    "vuex": "^3.6.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-plugin-router": "^4.5.11",
+    "@vue/cli-plugin-vuex": "^4.5.11",
+    "@vue/cli-service": "^4.5.11",
+    "vue-template-compiler": "^2.6.12"
+  }
+}
