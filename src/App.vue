@@ -8,7 +8,11 @@
         <!-- price list start -->
         <div
           v-show="close"
-          :class="[loginInfo.name == 'admin' ? 'admin' : 'col-sm-12 col-md-3']"
+          :class="[
+            loginInfo.name == 'admin' && loginInfo.stat == true
+              ? 'admin'
+              : 'col-sm-12 col-md-3',
+          ]"
         >
           <PriceList></PriceList>
         </div>

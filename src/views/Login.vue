@@ -158,7 +158,8 @@ export default {
   methods: {
     priceCart() {
       this.$store.dispatch("closeCart", false);
-      if (this.allUsers.length == 3) {
+      if (this.allUsers.length == 0) {
+        console.log("loaded...");
         this.$store.dispatch("setUsers", this.users);
         this.$store.dispatch("setAdmins", this.admins);
       }

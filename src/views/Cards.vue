@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      loginInfo.name == 'admin'
+      loginInfo.name == 'admin' && loginInfo.stat == true
         ? 'col-sm-12 col-md-12 col-lg-12'
         : 'col-sm-12 col-md-9 col-lg-9',
     ]"
