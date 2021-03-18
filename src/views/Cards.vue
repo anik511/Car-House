@@ -1,45 +1,54 @@
 <template>
-  <div v-if="loading" class="row">
-    <!-- card start -->
-    <div
-      v-for="(item, index) in items"
-      :key="index"
-      class="card col-12 col-sm-4 col-md-4 col-lg-3"
-    >
-      <router-link tag="div" :to="{ path: '/item/' + item.id }">
-        <img :src="item.photo" class="card-img-top image-pointer" alt="..." />
-        <img
-          v-show="item.stock == 0 && item.sold == true"
-          src="../assets/sold_out.png"
-          class="sold-out"
-          alt="..."
-        />
-        <div class="card-body">
-          <h5 class="card-title">{{ item.model }} - {{ item.year }}</h5>
-          <p class="card-text">
-            {{ item.title }}
-            <span class="green" v-if="item.stock > 0"
-              >&nbsp;&nbsp;&nbsp;&nbsp; Stock: {{ item.stock }}</span
-            >
-            <span class="red" v-else
-              >&nbsp;&nbsp;&nbsp;&nbsp; Out of stock</span
-            >
-          </p>
+  <div
+    :class="[
+      loginInfo.name == 'admin'
+        ? 'col-sm-12 col-md-12 col-lg-12'
+        : 'col-sm-12 col-md-9 col-lg-9',
+    ]"
+  >
+    <div v-if="loading" class="row">
+      <!-- card start -->
+      <div
+        v-for="(item, index) in items"
+        :key="index"
+        class="card col-12 col-sm-4 col-md-4 col-lg-3"
+      >
+        <router-link tag="div" :to="{ path: '/item/' + item.id }">
+          <img :src="item.photo" class="card-img-top image-pointer" alt="..." />
+          <img
+            v-show="item.stock == 0 && item.sold == true"
+            src="../assets/sold_out.png"
+            class="sold-out"
+            alt="..."
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ item.model }} - {{ item.year }}</h5>
+            <p class="card-text">
+              {{ item.title }}
+              <span class="green" v-if="item.stock > 0"
+                >&nbsp;&nbsp;&nbsp;&nbsp; Stock: {{ item.stock }}</span
+              >
+              <span class="red" v-else
+                >&nbsp;&nbsp;&nbsp;&nbsp; Out of stock</span
+              >
+            </p>
+          </div>
+        </router-link>
+        <div class="card-footer">
+          <p class="pricing">${{ item.price }}</p>
+          <a
+            v-if="item.stock > 0"
+            @click="addToCart(item), reduceStock(item.id)"
+            class="btn btn-outline-dark addbtn"
+            >Add +</a
+          >
         </div>
-      </router-link>
-      <div class="card-footer">
-        <p class="pricing">${{ item.price }}</p>
-        <a
-          v-if="item.stock > 0"
-          @click="addToCart(item), reduceStock(item.id)"
-          class="btn btn-primary addbtn"
-          >Add +</a
-        >
       </div>
     </div>
+
+    <!-- card end -->
+    <h1 v-else>Loading...</h1>
   </div>
-  <!-- card end -->
-  <h1 v-else>Loading...</h1>
 </template>
 
 <script>
@@ -289,6 +298,11 @@ export default {
     items() {
       return this.$store.getters.getInvetory;
     },
+    loginInfo() {
+      var status = this.$store.getters.getStatus;
+      console.log("Card Status: ", status);
+      return this.$store.getters.getStatus;
+    },
   },
   methods: {
     addToCart(item) {
@@ -340,10 +354,13 @@ export default {
 .card-body {
   cursor: pointer;
 }
+.card-body {
+  height: 124px !important;
+}
 .card {
-  /* width: 31.8%; */
+  padding: 0px !important;
   float: left;
-  margin: 10px 10px 10px 0px;
+  margin: 10px 0px 10px 0px;
 }
 .green {
   color: green;

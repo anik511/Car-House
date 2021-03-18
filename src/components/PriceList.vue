@@ -1,18 +1,18 @@
 <template>
   <div class="row">
     <ul class="list-group">
-      <li class="list-group-item" style="background: rgb(255, 153, 0)">
+      <li class="list-group-item">
         <span class="item-name">Item</span>
         <span class="item-price float-right">Price</span>
       </li>
       <li class="list-group-item" v-for="(cart, index) in carts" :key="index">
         <button
           @click="removeCart(index), reStore(cart.id)"
-          class="btn btn-xs btn-danger"
+          class="btn btn-danger btn-sm"
         >
           X
         </button>
-        <span class="item-name">{{ cart.title }}-{{ cart.model }}</span>
+        <span class="item-name"> {{ cart.title }}-{{ cart.model }}</span>
         <span class="item-price float-right">${{ cart.price }}</span>
       </li>
       <li class="list-group-item" style="border: solid rgb(241, 113, 7) 1px">
@@ -41,14 +41,24 @@ export default {
       });
       return total.toFixed(2);
     },
+    loginInfo() {
+      var status = this.$store.getters.getStatus;
+      console.log("PriceList Status: ", status);
+      return this.$store.getters.getStatus;
+    },
   },
   methods: {
     removeCart(index) {
       this.$store.commit("removeItem", index);
     },
     checkOut() {
-      this.$store.dispatch("closeCart", false);
-      this.$router.push({ path: "/buy" });
+      if (this.loginInfo.name == "user" && this.loginInfo.stat) {
+        this.$store.dispatch("closeCart", false);
+        this.$router.push({ path: "/buy" });
+      } else {
+        this.$router.push({ path: "/login" });
+      }
+
       // if(confirm("Are you sure you want to Checkout??")){
       //   this.$store.commit('clearList')
       // }
@@ -65,6 +75,13 @@ export default {
 .list-group {
   width: 100%;
   padding: 0 10px !important;
+  border-color: #28a345;
+}
+.list-group li:first-child {
+  background-color: #343a40;
+}
+.list-group li span {
+  color: #28a345;
 }
 .item-name {
   width: 70%;
@@ -77,3 +94,4 @@ export default {
   list-style-type: none;
 }
 </style>
+<style scoped></style>

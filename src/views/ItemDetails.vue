@@ -1,34 +1,36 @@
 <template>
-  <div v-if="item" class="row">
-    <div class="col-sm-6">
-      <img class="des-img" :src="item.photo" alt="Photo" />
-      <img
-        v-show="item.stock == 0 && item.sold == true"
-        src="../assets/sold_out.png"
-        class="sold-out"
-        alt="..."
-      />
-    </div>
-    <div class="col-sm-6">
-      <h3>{{ item.model }} - {{ item.year }}</h3>
-      <h5>{{ item.title }}</h5>
-      <span class="green" v-if="item.stock > 0"
-        >&nbsp;&nbsp;&nbsp;&nbsp; Stock: {{ item.stock }}</span
-      >
-      <span class="red" v-else>&nbsp;&nbsp;&nbsp;&nbsp; Out of stock</span>
-      <p>{{ item.description }}</p>
+  <div class="col-sm-12 col-md-9">
+    <div v-if="item" class="row">
+      <div class="col-sm-6">
+        <img class="des-img" :src="item.photo" alt="Photo" />
+        <img
+          v-show="item.stock == 0 && item.sold == true"
+          src="../assets/sold_out.png"
+          class="sold-out"
+          alt="..."
+        />
+      </div>
+      <div class="col-sm-6">
+        <h3>{{ item.model }} - {{ item.year }}</h3>
+        <h5>{{ item.title }}</h5>
+        <span class="green" v-if="item.stock > 0"
+          >&nbsp;&nbsp;&nbsp;&nbsp; Stock: {{ item.stock }}</span
+        >
+        <span class="red" v-else>&nbsp;&nbsp;&nbsp;&nbsp; Out of stock</span>
+        <p>{{ item.description }}</p>
 
-      <p class="price">${{ item.price }}</p>
-      <a
-        href="#"
-        v-if="item.stock > 0"
-        @click="addToCart(item), reduceStock(item.id)"
-        class="btn btn-primary addbtn"
-        >Add +</a
-      >
+        <p class="price">${{ item.price }}</p>
+        <a
+          href="#"
+          v-if="item.stock > 0"
+          @click="addToCart(item), reduceStock(item.id)"
+          class="btn btn-outline-dark addbtn"
+          >Add +</a
+        >
+      </div>
     </div>
+    <h3 v-else>Loading...</h3>
   </div>
-  <h3 v-else>Loading...</h3>
 </template>
 <script>
 // import axios from "axios";
@@ -79,7 +81,10 @@ export default {
 .price {
   width: 50%;
   float: left;
+  font-weight: 600;
   margin-top: 9px;
+  font-style: oblique;
+  color: orangered;
 }
 .des-img {
   width: 100%;

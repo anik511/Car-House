@@ -4,6 +4,9 @@ import VueRouter from 'vue-router'
 import ItemDetails from '../views/ItemDetails'
 import Buy from '../views/Buy'
 import Cards from '../views/Cards'
+import Register  from '../views/Register.vue'
+import Login from "../views/Login.vue"
+
 
 Vue.use(VueRouter)
 
@@ -13,8 +16,31 @@ const routes = [
     component: Cards
   },
   {
+    path: '/login',
+    component: Login,
+    name: 'Login',
+    // children: [
+      
+    // ],
+    
+  },
+  {
+    path: '/register',
+    component: Register,
+    beforeEnter: ((to, from, next) => {
+      if (from.name !== 'Login'){
+        next({ name: 'Login'})
+      }else next()
+    }),
+  },
+  {
     path: '/buy',
-    component: Buy
+    component: Buy,
+    beforeEnter: ((to, from, next) => {
+      if (localStorage.getItem("userLogin") == true){
+        next({ path: '/buy'})
+      }else next()
+    }),
   },
   {
     path: "/item/:id",

@@ -3,19 +3,21 @@
     <Navbar></Navbar>
     <!-- nav end -->
     <!-- inventory start -->
-    <div class="container">
+    <div class="container mt-6">
       <div class="row">
         <!-- price list start -->
-        <div v-show="close" class="col-sm-12 col-md-3">
+        <div
+          v-show="close"
+          :class="[loginInfo.name == 'admin' ? 'admin' : 'col-sm-12 col-md-3']"
+        >
           <PriceList></PriceList>
         </div>
         <!-- price list end -->
         <!-- items start -->
-        <div class="col-sm-12 col-md-9">
-          <!-- card -->
-          <router-view></router-view>
-          <!-- <Cards @newItemadded="addCartItem" :items="items"></Cards> -->
-        </div>
+
+        <!-- card -->
+        <router-view></router-view>
+        <!-- <Cards @newItemadded="addCartItem" :items="items"></Cards> -->
         <!-- items end -->
       </div>
     </div>
@@ -45,10 +47,22 @@ export default {
     close() {
       return this.$store.getters.getcloserpicelist;
     },
+    loginInfo() {
+      var status = this.$store.getters.getStatus;
+      console.log("App.vue Status: ", status);
+      return this.$store.getters.getStatus;
+    },
   },
   mounted() {},
   methods: {},
 };
 </script>
 
-<style></style>
+<style>
+.mt-6 {
+  margin-top: 4rem;
+}
+.admin {
+  display: none;
+}
+</style>
